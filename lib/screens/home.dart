@@ -41,7 +41,7 @@ class _HomeState extends State<Home> {
                     shrinkWrap: true, // 1st add
                     physics: ClampingScrollPhysics(), // 2nd add
                     itemCount: 5,
-                    itemBuilder: (_, index) => Card(child: Text('Item $index')),
+                    itemBuilder: (_, index) => ListTile(title: Text('Meeting with Carl'), subtitle: Text("11 AM - 12 PM")),
                   ),
                 );
               },
