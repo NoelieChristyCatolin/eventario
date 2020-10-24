@@ -9,10 +9,11 @@ class Event {
   bool isAllDay;
   MaterialColor color;
 
-  Event({this.date,this.eventName, this.startTime, this.endTime, this.color, this.isAllDay = false});
-
-  Map<String,dynamic> toMap(){
-
-  }
-
+  Event({
+    this.date,
+    this.eventName,
+    this.startTime,
+    this.endTime,
+    this.color = Colors.blue,
+    this.isAllDay = false});
 }

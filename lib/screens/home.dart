@@ -33,17 +33,20 @@ class Home extends StatelessWidget {
               },),
           ),
           Expanded(
-            child:ListView.builder( // outer ListView
+            child: ListView.builder( // outer ListView
               itemCount: eventViewModelListener.filterEvents.length,
               itemBuilder: (_, index) {
                 //todo: group by date
                 var day = eventViewModelListener.filterEvents[index].date;
                 var events = eventViewModelListener.filterEvents[index].events;
                 return ListTile(
-                 leading:  Column(
+                 leading: Column(
                    children: [
-                     Text("${day.weekday}"),
-                     Text("${day.day}"),
+                     Text("${_convertWeekdayToString(day.weekday)}"),
+                     Text(
+                       "${day.day}",
+                       style: TextStyle(fontSize: 19),
+                     ),
                    ],
                  ),
                   title: ListView.builder( // inner ListView
@@ -51,7 +54,25 @@ class Home extends StatelessWidget {
                     physics: ClampingScrollPhysics(), // 2nd add
                     itemCount: events.length,
                     itemBuilder: (context, index) {
-                      return ListTile(title: Text(events[index].eventName), subtitle: Text("${events[index].startTime} - ${events[index].endTime}"));
+                      return Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                            border: Border.all(width: 1, color: events[index].color),
+                          ),
+                          child: ListTile(
+                              title: Text(
+                                events[index].eventName,
+                                style: TextStyle(color:  events[index].color),
+                              ),
+                              subtitle: Text(
+                                events[index].isAllDay ? "All Day" : "${events[index].startTime} - ${events[index].endTime}",
+                                style: TextStyle(color:  events[index].color),
+                              ),
+                          ),
+                        ),
+                      );
                     },
                   ),
                 );
@@ -61,6 +82,27 @@ class Home extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  _convertWeekdayToString(int weekday){
+    switch(weekday){
+      case 1:
+        return 'MON';
+      case 2:
+        return 'TUE';
+      case 3:
+        return 'WED';
+      case 4:
+        return 'THU';
+      case 5:
+        return 'FRI';
+      case 6:
+        return 'SAT';
+      case 7:
+        return 'SUN';
+    }
+
+
   }
 
 }
