@@ -103,21 +103,18 @@ class _AddEventState extends State<AddEvent> {
                         color: Colors.red,
                         onTap: (){
                           newEvent.color = Colors.red;
-                          print(newEvent.color);
                         }
                       ),
                       ColorTile(
                           color: Colors.blue,
                           onTap: (){
                             newEvent.color = Colors.blue;
-                            print(newEvent.color);
                           }
                       ),
                       ColorTile(
                           color: Colors.purple,
                           onTap: (){
                             newEvent.color = Colors.purple;
-                            print(newEvent.color);
                           }
                       ),
                     ],
@@ -144,7 +141,6 @@ class _AddEventState extends State<AddEvent> {
 
     if (time!= null) {
       setState(() {
-        print(time);
         var selectedTime = "${time.hour} : ${time.minute}";
         controller.value = TextEditingValue(
           text: selectedTime,
