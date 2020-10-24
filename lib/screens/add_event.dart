@@ -162,26 +162,6 @@ class _AddEventState extends State<AddEvent> {
     }
   }
 
-  _selectDate(TextEditingController controller) async {
-    DateTime date = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime.now(),
-        lastDate:  DateTime(lastyear));
-
-    if(date != null){
-      setState(() {
-        var selectedTime = "${date.month}/${date.day}/${date.year}";
-        controller.value = TextEditingValue(
-          text: selectedTime,
-          selection: TextSelection.fromPosition(
-            TextPosition(offset: selectedTime.length),
-          ),
-        );
-      });
-    }
-  }
-
   _formatEventDate(DateTime date){
     return "${date.month}/${date.day}/${date.year}";
   }
