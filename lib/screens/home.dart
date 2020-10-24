@@ -36,7 +36,6 @@ class Home extends StatelessWidget {
             child: ListView.builder( // outer ListView
               itemCount: eventViewModelListener.filterEvents.length,
               itemBuilder: (_, index) {
-                //todo: group by date
                 var day = eventViewModelListener.filterEvents[index].date;
                 var events = eventViewModelListener.filterEvents[index].events;
                 return ListTile(

@@ -19,21 +19,23 @@ class _AddEventState extends State<AddEvent> {
   var startTimeTextController = TextEditingController();
   var endTimeTextController = TextEditingController();
   Colors color;
-  Event newEvent = Event();
+  Event _newEvent = Event();
+  final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     var eventViewModel = Provider.of<EventViewModel>(context, listen: false);
-    //todo: use form saved
     return AlertDialog(
       actions: <Widget>[
         FlatButton(
           onPressed: (){
-            Navigator.pop(context);
-            newEvent.date = widget.date;
-            newEvent.startTime = startTimeTextController.value.text;
-            newEvent.endTime = endTimeTextController.value.text;
-            eventViewModel.saveEvent(newEvent);
+            if (_formKey.currentState.validate()) {
+              _formKey.currentState.save();
+
+              _newEvent.date = widget.date;
+              eventViewModel.saveEvent(_newEvent);
+              Navigator.pop(context);
+            }
           },
           child: Text("SET"),),
       ],
@@ -53,25 +55,29 @@ class _AddEventState extends State<AddEvent> {
             ),
           ),
           Form(
+            key: _formKey,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(_formatEventDate(widget.date)),
-                  TextField(
-                    decoration: InputDecoration(hintText: 'Event'),
-                    onChanged: (value){
-                      setState(() {
-                        newEvent.eventName = value;
-                      });
+                  TextFormField(
+                    decoration: InputDecoration(labelText: 'Event Name'),
+                    validator: _isNotNull,
+                    onSaved: (value){
+                        _newEvent.eventName = value;
                     },
                   ),
                   Row(
                     children: [
                       Expanded(
-                        child: TextField(
+                        child: TextFormField(
                           controller: startTimeTextController,
-                          decoration: InputDecoration(hintText: 'Start'),
+                          decoration: InputDecoration(labelText: 'Start Time'),
                           onTap: () => _selectTime(startTimeTextController),
+                          validator: _isNotNull,
+                          onSaved: (value){
+                            _newEvent.startTime = value;
+                          },
                         ),
                       ),
                       Padding(
@@ -79,20 +85,24 @@ class _AddEventState extends State<AddEvent> {
                         child: Text(' - '),
                       ),
                       Expanded(
-                        child: TextField(
+                        child: TextFormField(
                           controller: endTimeTextController,
-                          decoration: InputDecoration(hintText: 'End'),
+                          decoration: InputDecoration(labelText: 'End Time'),
                           onTap: () => _selectTime(endTimeTextController),
+                          validator: _isNotNull,
+                          onSaved: (value){
+                            _newEvent.endTime = value;
+                          }
                         ),
                       ),
                     ],
                   ),
                   CheckboxListTile(
                     title: Text("All Day"),
-                    value: newEvent.isAllDay,
+                    value: _newEvent.isAllDay,
                     onChanged: (value){
                       setState(() {
-                        newEvent.isAllDay = value;
+                        _newEvent.isAllDay = value;
                       });
                     },
                   ),
@@ -102,19 +112,19 @@ class _AddEventState extends State<AddEvent> {
                       ColorTile(
                         color: Colors.red,
                         onTap: (){
-                          newEvent.color = Colors.red;
+                          _newEvent.color = Colors.red;
                         }
                       ),
                       ColorTile(
                           color: Colors.blue,
                           onTap: (){
-                            newEvent.color = Colors.blue;
+                            _newEvent.color = Colors.blue;
                           }
                       ),
                       ColorTile(
                           color: Colors.purple,
                           onTap: (){
-                            newEvent.color = Colors.purple;
+                            _newEvent.color = Colors.purple;
                           }
                       ),
                     ],
@@ -176,4 +186,13 @@ class _AddEventState extends State<AddEvent> {
     return "${date.month}/${date.day}/${date.year}";
   }
 
+  String _isNotNull(String value) {
+    print("value.length ${value.length} ");
+    if (value.length == 0) {
+      print("zero");
+      return 'Field Required';
+    }
+    print("value");
+    return null;
+  }
 }

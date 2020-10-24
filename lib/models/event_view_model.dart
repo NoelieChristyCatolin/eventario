@@ -15,9 +15,15 @@ class EventViewModel extends ChangeNotifier {
   }
 
   void saveEvent(Event event) {
-        Event newEvent = event;
-        _eventList.add(newEvent);
-        notifyListeners();
+    Event newEvent = event;
+    _eventList.add(newEvent);
+    print(newEvent.date);
+    print(newEvent.date);
+    print(newEvent.startTime);
+    print(newEvent.endTime);
+    print(newEvent.isAllDay);
+    print(newEvent.color);
+    notifyListeners();
   }
 
   List<Day> get filterEvents{
