@@ -1,4 +1,3 @@
-import 'package:eventario/models/event_view_model.dart';
 import 'package:flutter/material.dart';
 
 class Event {

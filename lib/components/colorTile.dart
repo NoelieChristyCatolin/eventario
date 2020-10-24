@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ColorTile extends StatelessWidget {
-  MaterialColor color;
+  final MaterialColor color;
   final Function onTap;
 
   ColorTile({this.color, this.onTap});

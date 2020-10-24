@@ -5,7 +5,7 @@ import 'package:eventario/models/event.dart';
 import 'package:eventario/components/colorTile.dart';
 
 class AddEvent extends StatefulWidget {
-  DateTime date;
+  final DateTime date;
 
   AddEvent({this.date});
   @override

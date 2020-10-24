@@ -5,8 +5,8 @@ import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
   static String id = 'home';
-  int lastyear = DateTime.now().year + 10;
-  DateTime selectedDate = DateTime.now();
+  final int lastyear = DateTime.now().year + 10;
+  final DateTime selectedDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,8 @@ class Home extends StatelessWidget {
                      return AddEvent(date: value,);
                     }
                 );
-              },),
+              },
+            ),
           ),
           Expanded(
             child: ListView.builder( // outer ListView
