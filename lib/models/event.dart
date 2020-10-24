@@ -11,4 +11,8 @@ class Event {
 
   Event({this.date,this.eventName, this.startTime, this.endTime, this.color, this.isAllDay = false});
 
+  Map<String,dynamic> toMap(){
+
+  }
+
 }

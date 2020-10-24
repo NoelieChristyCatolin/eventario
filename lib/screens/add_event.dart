@@ -24,6 +24,7 @@ class _AddEventState extends State<AddEvent> {
   @override
   Widget build(BuildContext context) {
     var eventViewModel = Provider.of<EventViewModel>(context, listen: false);
+    //todo: use form saved
     return AlertDialog(
       actions: <Widget>[
         FlatButton(

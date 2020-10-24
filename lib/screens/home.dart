@@ -34,21 +34,25 @@ class Home extends StatelessWidget {
           ),
           Expanded(
             child:ListView.builder( // outer ListView
-              itemCount: eventViewModelListener.count,
+              itemCount: eventViewModelListener.filterEvents.length,
               itemBuilder: (_, index) {
-                var event = eventViewModelListener.list[index];
+                //todo: group by date
+                var day = eventViewModelListener.filterEvents[index].date;
+                var events = eventViewModelListener.filterEvents[index].events;
                 return ListTile(
                  leading:  Column(
                    children: [
-                     Text("${event.date.weekday}"),
-                     Text("${event.date.day}"),
+                     Text("${day.weekday}"),
+                     Text("${day.day}"),
                    ],
                  ),
                   title: ListView.builder( // inner ListView
                     shrinkWrap: true, // 1st add
                     physics: ClampingScrollPhysics(), // 2nd add
-                    itemCount: eventViewModelListener.count,
-                    itemBuilder: (_, index) => ListTile(title: Text(event.eventName), subtitle: Text("${event.startTime} - ${event.endTime}")),
+                    itemCount: events.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(title: Text(events[index].eventName), subtitle: Text("${events[index].startTime} - ${events[index].endTime}"));
+                    },
                   ),
                 );
               },

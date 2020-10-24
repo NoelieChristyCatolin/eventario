@@ -1,4 +1,6 @@
+import 'package:eventario/models/day.dart';
 import 'package:flutter/material.dart';
+import 'package:collection/collection.dart';
 import 'event.dart';
 
 class EventViewModel extends ChangeNotifier {
@@ -24,5 +26,14 @@ class EventViewModel extends ChangeNotifier {
         notifyListeners();
   }
 
+  List<Day> get filterEvents{
+    List<Day> newEventList = [];
+    var groupedEvents = groupBy(_eventList, (obj) => (obj as Event).date);
+    print(groupedEvents);
+    groupedEvents.forEach((key, value) {
+      newEventList.add(Day(date: key, events: value));
+    });
+    return newEventList;
+  }
 
 }
